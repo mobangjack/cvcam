@@ -1,5 +1,6 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <stdio.h>
 
 int main(int argc, char** argv)
 {
@@ -9,7 +10,8 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	const char* device = argv[1];
+	//const char* device = argv[1];
+    int device = atoi(argv[1]);
 	cv::VideoCapture cap(device);
 	if (!cap.isOpened())
 	{
@@ -21,7 +23,16 @@ int main(int argc, char** argv)
 
 	while (1)
 	{
+		double t0 = cv::getTickCount();
 		cap >> image;
+		double t1 = cv::getTickCount();
+		double dt = (t1 - t0) / cv::getTickFrequency();
+		double expect = 34.0;
+		dt = dt * 1000; // s->ms
+		if (dt > expect) // assume the camera is 30fps
+		{
+			printf("[CVCAM] [WARNING] frame interval (%.f) is longer than expected (%.f)\n", dt, expect);
+		}
 
 		if (image.empty())
 			break;

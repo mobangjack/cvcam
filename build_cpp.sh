@@ -1,1 +1,1 @@
-g++ `pkg-config --cflags opencv` cvdnn.cpp -o cvdnn `pkg-config --libs opencv`
+g++ `pkg-config --cflags opencv` src/cvcam.cpp -o cvcam `pkg-config --libs opencv`
