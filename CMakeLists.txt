@@ -4,5 +4,5 @@ project(cvcam)
 
 find_package(OpenCV REQUIRED)
 
-add_executable(cvcam src/cvcam.cpp)
+add_executable(cvcam src/cvcam.cpp src/V4LCapture.cpp)
 target_link_libraries(cvcam ${OpenCV_LIBRARIES})
